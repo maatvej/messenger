@@ -1,0 +1,42 @@
+<!-- templates/chat_list.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Чаты{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h2>Чаты</h2>
+    <ul class="profile-list">
+      {% for chat_member in chat_members %}
+          {% if chat_member.chat %}
+              <li class="profile-item">
+                  <div class="profile-header">
+                      {% if chat_member.chat_member.avatar %}
+                          <img src="{{ chat_member.chat_member.avatar.url }}" alt="{{ chat_member.chat_member.user.username }} avatar" class="avatar">
+                      {% else %}
+                          <div class="no-avatar"></div>
+                      {% endif %}
+                  </div>
+                  <div class="profile-details">
+                    <a href="{% if chat_member.chat.type == 'group' %}{% url 'messenger_app:group-chat-detail' pk=chat_member.chat.id %}{% elif chat_member.chat.type == 'private' %}{% url 'messenger_app:chat-with-user' username=chat_member.chat_member.user.username %}{% endif %}">
+                        Открыть чат: {{ chat_member.chat.get_chat_display_name }}</a>
+
+
+                      <!-- Отладочный вывод -->
+                      <p>Chat ID: {{ chat_member.chat.id }}, Type: {{ chat_member.chat.type }}</p>
+                      <p>Chat Member ID: {{ chat_member.chat_member.id }}, Username: {{ chat_member.chat_member.user.username }}</p>
+                  </div>
+              </li>
+          {% endif %}
+      {% endfor %}
+    </ul>
+    <button id="create-group-chat">Создать групповой чат</button>
+  </div>
+
+  <script>
+    document.getElementById('create-group-chat').addEventListener('click', function() {
+      window.location.href = '{% url "messenger_app:group-chat-create" %}';
+    });
+  </script>
+{% endblock %}

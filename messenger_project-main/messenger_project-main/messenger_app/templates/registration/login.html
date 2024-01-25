@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <h2>Авторизация</h2>
+  <form method="post" class="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Войти</button>
+  </form>
+  {% if form.errors %}
+    <p style="color: red;">Неверные логин или пароль. Пожалуйста, попробуйте еще раз.</p>
+  {% endif %}
+    <p>Ещё нет аккаунта? <a href="/register/">Зарегистрируйтесь</a>.</p>
+{% endblock %}

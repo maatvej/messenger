@@ -1,0 +1,19 @@
+<!-- В templates/messenger_app/edit_message.html -->
+
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Edit Message{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+  <div class="container">
+    <h2>Edit Message</h2>
+    <form method="post" action="{% url 'messenger_app:edit-message' message_id=message_id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save changes</button>
+    </form>
+  </div>
+{% endblock %}

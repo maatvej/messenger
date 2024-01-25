@@ -1,0 +1,34 @@
+<!-- templates/user_list.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}User List{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+  <div class="container">
+    <h2>Список пользователей</h2>
+    <ul class="profile-list">
+      {% for user in users %}
+        <li class="profile-item">
+          <div class="profile-header">
+            {% if user.userprofile.avatar %}
+              <img src="{{ user.userprofile.avatar.url }}" alt="{{ user.username }} avatar" class="avatar">
+            {% else %}
+              <div class="no-avatar"></div>
+            {% endif %}
+          </div>
+          <div class="profile-details">
+            <strong>{{ user.username }}</strong>
+            <p>Имя: {{ user.first_name }}</p>
+            <p>Фамилия: {{ user.last_name }}</p>
+          </div>
+          <div class="profile-actions">
+            <a href="{% url 'messenger_app:chat-with-user' username=user.username %}" class="send-message-link">Перейти в чат</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

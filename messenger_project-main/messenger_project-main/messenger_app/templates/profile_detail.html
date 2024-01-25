@@ -1,0 +1,30 @@
+<!-- templates/profile_detail.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Профиль пользователя {{ user_profile.user.username }}{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+  <div class="container">
+    <h2>Профиль пользователя {{ user_profile.user.username }}</h2>
+    <div class="profile-item">
+      <div class="profile-header">
+        {% if user_profile.avatar %}
+          <img src="{{ user_profile.avatar.url }}" alt="{{ user_profile.user.username }} avatar" class="avatar">
+        {% else %}
+          <div class="no-avatar"></div>
+        {% endif %}
+      </div>
+      <div class="profile-details">
+        <strong>{{ user_profile.user.username }}</strong>
+        <p>Имя: {{ user_profile.user.first_name }}</p>
+        <p>Фамилия: {{ user_profile.user.last_name }}</p>
+      </div>
+      <div class="profile-actions">
+        <a href="{% url 'messenger_app:edit-profile' %}" class="edit-link">Редактировать</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!-- templates/send_group_message.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Отправка сообщения в групповой чат{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+  <div class="container">
+    <h2>Отправка сообщения в групповой чат</h2>
+    <form method="post" action="{% url 'messenger_app:send-group-message' group_chat_id=group_chat.id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Отправить сообщение</button>
+    </form>
+  </div>
+{% endblock %}

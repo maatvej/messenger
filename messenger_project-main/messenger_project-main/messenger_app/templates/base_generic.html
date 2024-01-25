@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <title>{% block title %}Messenger App{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-list">
+            {% if user.is_authenticated %}
+                <li><a class="nav-link" href="{% url 'messenger_app:chat-list' %}">Чаты</a></li>
+                <li><a class="nav-link" href="{% url 'messenger_app:user-list' %}">Пользователи</a></li>
+                <li><a class="nav-link" href="{% url 'messenger_app:profile' %}">Профиль</a></li>
+                <li><a class="nav-link" href="{% url 'logout' %}">Выйти</a></li>
+            {% else %}
+                <li><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
+                <li><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

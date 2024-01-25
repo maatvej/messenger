@@ -1,0 +1,162 @@
+/* static/css/styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+h2 {
+  color: #333;
+}
+
+.profile-list {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-item {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.profile-header {
+  margin-right: 20px;
+}
+
+.avatar {
+  width: 40px; /* Ширина аватара */
+  height: 40px; /* Высота аватара */
+  border-radius: 50%; /* Круглый аватар */
+  overflow: hidden; /* Обрезать изображение, если оно больше рамки */
+  margin-right: 10px; /* Отступ справа от аватара */
+}
+
+.avatar img {
+  width: 100%; /* Занимает 100% ширины блока .avatar */
+  height: 100%; /* Занимает 100% высоты блока .avatar */
+  object-fit: cover; /* Заполнение блока без искажения пропорций */
+}
+
+.no-avatar {
+  width: 40px; /* Ширина блока .no-avatar */
+  height: 40px; /* Высота блока .no-avatar */
+  border-radius: 50%; /* Круглый блок .no-avatar */
+  overflow: hidden; /* Обрезать текст, если он больше блока */
+  display: flex; /* Размещение содержимого по центру */
+  align-items: center; /* Выравнивание содержимого по вертикали */
+  justify-content: center; /* Выравнивание содержимого по горизонтали */
+  background-color: #ccc; /* Цвет фона для блока .no-avatar */
+  color: #fff; /* Цвет текста для блока .no-avatar */
+  font-weight: bold; /* Жирный текст */
+  font-size: 16px; /* Размер шрифта */
+}
+
+.profile-details {
+  flex: 1;
+}
+
+.profile-details p {
+  margin: 5px 0;
+}
+
+.profile-actions {
+  text-align: right;
+}
+
+.edit-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.save-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+/* Стили для навигации */
+.navbar {
+    background-color: #007bff;
+    padding: 10px 0;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.message {
+  position: relative;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #ecf0f1;
+  border-radius: 5px;
+}
+
+.message-actions {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  display: none;
+}
+
+.message:hover .message-actions {
+  display: block;
+}
+
+.message-actions a {
+  color: #3498db;
+  text-decoration: none;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.message-actions a:hover {
+  text-decoration: underline;
+}
+
+.delete-btn {
+  color: #e74c3c;
+}
+
+

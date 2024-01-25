@@ -1,0 +1,101 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Chat with {{ recipient_profile.user.username }}{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}?v={{ timestamp }}">
+
+
+  <div class="container">
+    <h2>Чат с пользователем {{ recipient_profile.user.username }}</h2>
+
+    <div id="chat-messages">
+      {% if messages %}
+        {# Отладочный вывод: #}
+        <script>
+          console.log('Messages:', {{ messages|safe }});
+        </script>
+
+        {% for message in messages %}
+          <div class="message" data-message-id="{{ message.id }}">
+            <div class="avatar">
+              {% if message.sender.avatar %}
+                <img src="{{ message.sender.avatar.url }}" alt="{{ message.sender.user.username }}">
+              {% else %}
+                <div class="no-avatar">{{ message.sender.user.username|first|upper }}</div>
+              {% endif %}
+            </div>
+
+            <div class="message-content">
+              <p><strong>{{ message.sender.user.username }}:</strong> {{ message.content }}</p>
+              <span>{{ message.timestamp|date:"Y-m-d H:i:s" }}</span>
+
+              {% if message.sender == request.user.userprofile %}
+                <div class="message-actions">
+                  <a href="{% url 'messenger_app:edit-message' message.id %}" class="edit-link">Редактировать</a>
+                  <a href="{% url 'messenger_app:delete-message' message.id %}" class="delete-link">Удалить</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+
+      {% else %}
+        <p>Сообщений нет</p>
+      {% endif %}
+    </div>
+
+    <form id="message-form" method="post" action="{% url 'messenger_app:send-message' username=recipient_profile.user.username %}">
+      {% csrf_token %}
+      <textarea name="content" rows="4" cols="50" required></textarea>
+      <br>
+      <button type="submit">Отправить сообщение</button>
+    </form>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var messages = document.querySelectorAll('.message');
+
+    messages.forEach(function(message) {
+      message.addEventListener('mouseover', function() {
+        var actions = this.querySelector('.message-actions');
+        if (actions) {
+          actions.style.display = 'block';
+        }
+      });
+
+      message.addEventListener('mouseout', function() {
+        var actions = this.querySelector('.message-actions');
+        if (actions) {
+          actions.style.display = 'none';
+        }
+      });
+
+      var actions = message.querySelector('.message-actions');
+      if (actions) {
+        var editLink = actions.querySelector('.edit-link');
+        var deleteLink = actions.querySelector('.delete-link');
+
+        editLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          var messageId = message.dataset.messageId;
+          // Реализуйте логику редактирования сообщения здесь, например, через AJAX запрос.
+          console.log('Edit message clicked for message with ID:', messageId);
+        });
+
+        deleteLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          var messageId = message.dataset.messageId;
+          // Реализуйте логику удаления сообщения здесь, например, через AJAX запрос.
+          console.log('Delete message clicked for message with ID:', messageId);
+        });
+      }
+    });
+  });
+</script>
+
+
+
+{% endblock %}

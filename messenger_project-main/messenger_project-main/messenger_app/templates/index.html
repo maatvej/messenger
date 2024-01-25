@@ -1,0 +1,41 @@
+{% load static %}
+
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div id="app">
+        <div id="chat-container">
+            <div id="chat-list">
+                <h2>Chats</h2>
+                <ul id="chats"></ul>
+            </div>
+            <div id="message-container">
+                <div id="message-list">
+                    <h2>Messages</h2>
+                    <ul id="messages"></ul>
+                </div>
+                <div id="message-input">
+                    <input type="text" id="message-content" placeholder="Type your message">
+                    <button id="send-message-btn">Send Message</button>
+                </div>
+            </div>
+        </div>
+        <div id="profile-container">
+            <h2>Your Profile</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ user_form.as_p }}
+                <button type="submit">Save Profile</button>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

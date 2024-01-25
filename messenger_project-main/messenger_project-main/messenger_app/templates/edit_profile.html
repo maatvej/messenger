@@ -1,0 +1,18 @@
+<!-- templates/edit_profile.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+  <div class="container">
+    <h2>Редактирование профиля, {{ user.username }}</h2>
+    <form method="post" enctype="multipart/form-data" class="profile-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="save-button">Сохранить</button>
+    </form>
+  </div>
+{% endblock %}

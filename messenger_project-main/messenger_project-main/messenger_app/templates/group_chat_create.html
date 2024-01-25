@@ -1,0 +1,48 @@
+<!-- templates/messenger_app/group_chat_create.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Создание группового чата{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h2>Создание группового чата</h2>
+
+    <form id="groupChatForm" method="post" action="{% url 'messenger_app:group-chat-create' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit">Создать чат</button>
+    </form>
+
+    <div id="errors" style="color: red;"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('groupChatForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+        fetch(this.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              window.location.href = data.redirect_url;
+            } else if (data.status === 'error') {
+              document.getElementById('errors').innerText = 'Ошибка: ' + JSON.stringify(data.errors);
+            }
+          })
+          .catch(error => console.error(error));
+      });
+    });
+  </script>
+{% endblock %}
